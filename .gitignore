@@ -30,3 +30,5 @@ encore.gen.go
 encore.gen.cue
 /encore.gen
 
+# Misc
+.DS_Store
