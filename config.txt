@@ -1,0 +1,3 @@
+notion_database_id,21ad46420f034d4496498a4747e38386
+company,platform
+pinecone,ashby
