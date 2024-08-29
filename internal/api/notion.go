@@ -37,7 +37,7 @@ func init() {
 // Set up the cron job to run every hour
 var _ = cron.NewJob("update-notion-jobs", cron.JobConfig{
 	Title:    "Update Notion with latest jobs",
-	Every:    3 * cron.Minute,
+	Every:    1 * cron.Hour,
 	Endpoint: UpdateNotionJobs,
 })
 
