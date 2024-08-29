@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"strings"
 
 	"encore/internal/boards"
 
@@ -59,6 +60,21 @@ func UpdateNotionJobs(ctx context.Context) error {
 			},
 			"Link": notionapi.URLProperty{
 				URL: job.Link,
+			},
+			"Job ID": notionapi.RichTextProperty{
+				RichText: []notionapi.RichText{
+					{Text: &notionapi.Text{Content: strings.Split(job.Link, "/")[4]}},
+				},
+			},
+			"Company name": notionapi.RichTextProperty{
+				RichText: []notionapi.RichText{
+					{Text: &notionapi.Text{Content: "Pinecone"}},
+				},
+			},
+			"Job platform": notionapi.RichTextProperty{
+				RichText: []notionapi.RichText{
+					{Text: &notionapi.Text{Content: "Ashby"}},
+				},
 			},
 		}
 
