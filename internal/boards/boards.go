@@ -1,6 +1,6 @@
 package boards
 
-import "encore.app/pkg/types"
+import "encore/pkg/types"
 
 func GetBoards() map[string]types.BoardFunc {
 	return map[string]types.BoardFunc{

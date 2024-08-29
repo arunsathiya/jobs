@@ -1,4 +1,4 @@
-module encore.app
+module encore
 
 go 1.23.0
 

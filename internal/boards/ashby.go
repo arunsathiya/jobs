@@ -3,11 +3,11 @@ package boards
 import (
 	"bytes"
 	"encoding/json"
+	"encore/pkg/types"
 	"fmt"
 	"net/http"
 	"strings"
 
-	"encore.app/pkg/types"
 	"encore.dev/beta/errs"
 )
 

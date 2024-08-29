@@ -3,8 +3,9 @@ package api
 import (
 	"context"
 
-	"encore.app/internal/boards"
-	"encore.app/pkg/types"
+	"encore/internal/boards"
+	"encore/pkg/types"
+
 	"encore.dev/beta/errs"
 )
 
