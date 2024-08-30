@@ -20,3 +20,5 @@ ashby,Dashworks
 ashby,dune
 ashby,vanta
 ashby,forma
+greenhouse,roblox
+lever,palantir
