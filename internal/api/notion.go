@@ -27,12 +27,12 @@ type JobSource struct {
 	Company  string
 }
 
+var secrets struct {
+	NotionToken string
+}
+
 func init() {
-	notionToken := os.Getenv("NOTION_TOKEN")
-	if notionToken == "" {
-		panic("NOTION_TOKEN environment variable is not set")
-	}
-	notionClient = notionapi.NewClient(notionapi.Token(notionToken))
+	notionClient = notionapi.NewClient(notionapi.Token(secrets.NotionToken))
 }
 
 // Set up the cron job to run every hour
