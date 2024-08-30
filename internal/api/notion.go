@@ -150,6 +150,20 @@ func processJobSource(ctx context.Context, databaseID notionapi.DatabaseID, plat
 }
 
 func createNotionPage(ctx context.Context, databaseID notionapi.DatabaseID, job types.Job, platform, company string) error {
+	// Extract job ID from the link
+	jobID := strings.Split(job.Link, "/")[4]
+
+	// Check if the job already exists
+	exists, err := jobExists(ctx, databaseID, jobID)
+	if err != nil {
+		return fmt.Errorf("failed to check if job exists: %v", err)
+	}
+
+	if exists {
+		// Job already exists, skip creation
+		return nil
+	}
+
 	properties := notionapi.Properties{
 		"Name": notionapi.TitleProperty{
 			Title: []notionapi.RichText{
@@ -166,7 +180,7 @@ func createNotionPage(ctx context.Context, databaseID notionapi.DatabaseID, job 
 		},
 		"Job ID": notionapi.RichTextProperty{
 			RichText: []notionapi.RichText{
-				{Text: &notionapi.Text{Content: strings.Split(job.Link, "/")[4]}},
+				{Text: &notionapi.Text{Content: jobID}},
 			},
 		},
 		"Company name": notionapi.RichTextProperty{
@@ -181,7 +195,7 @@ func createNotionPage(ctx context.Context, databaseID notionapi.DatabaseID, job 
 		},
 	}
 
-	_, err := notionClient.Page.Create(ctx, &notionapi.PageCreateRequest{
+	_, err = notionClient.Page.Create(ctx, &notionapi.PageCreateRequest{
 		Parent: notionapi.Parent{
 			Type:       notionapi.ParentTypeDatabaseID,
 			DatabaseID: databaseID,
@@ -193,4 +207,23 @@ func createNotionPage(ctx context.Context, databaseID notionapi.DatabaseID, job 
 	}
 
 	return nil
+}
+
+func jobExists(ctx context.Context, databaseID notionapi.DatabaseID, jobID string) (bool, error) {
+	query := &notionapi.DatabaseQueryRequest{
+		Filter: &notionapi.PropertyFilter{
+			Property: "Job ID",
+			RichText: &notionapi.TextFilterCondition{
+				Equals: jobID,
+			},
+		},
+		PageSize: 1,
+	}
+
+	result, err := notionClient.Database.Query(ctx, databaseID, query)
+	if err != nil {
+		return false, err
+	}
+
+	return len(result.Results) > 0, nil
 }

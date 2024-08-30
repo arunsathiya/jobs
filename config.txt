@@ -7,3 +7,16 @@ ashby,Doppel
 ashby,pylon-labs
 ashby,comulate
 ashby,character
+ashby,replit
+ashby,cape
+ashby,kustomer
+ashby,codeium
+ashby,harvey
+ashby,northwoodspace
+ashby,magicschool
+ashby,sudo
+ashby,multiply
+ashby,Dashworks
+ashby,dune
+ashby,vanta
+ashby,forma
