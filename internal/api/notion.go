@@ -150,8 +150,14 @@ func processJobSource(ctx context.Context, databaseID notionapi.DatabaseID, plat
 }
 
 func createNotionPage(ctx context.Context, databaseID notionapi.DatabaseID, job types.Job, platform, company string) error {
-	// Extract job ID from the link
-	jobID := strings.Split(job.Link, "/")[4]
+	// Extract job ID from the link (last part after '/')
+	parts := strings.Split(job.Link, "/")
+	jobID := parts[len(parts)-1]
+
+	// If the jobID contains a query parameter, extract only the ID part
+	if strings.Contains(jobID, "?") {
+		jobID = strings.Split(jobID, "?")[0]
+	}
 
 	// Check if the job already exists
 	exists, err := jobExists(ctx, databaseID, jobID)
